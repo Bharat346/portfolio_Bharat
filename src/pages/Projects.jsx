@@ -69,7 +69,7 @@ const Projects = () => {
   const fetchAllProjects = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/projects');
+      const res = await axios.get('https://portfolio-bharat-backend.vercel.app/api/projects');
       const projectsData = Array.isArray(res.data) ? res.data : [];
       setProjects(projectsData);
       
@@ -93,7 +93,7 @@ const Projects = () => {
 
     try {
       setApiSearchLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/projects?skill=${encodeURIComponent(skill)}`);
+      const res = await axios.get(`https://portfolio-bharat-backend.vercel.app/api/projects?skill=${encodeURIComponent(skill)}`);
       const projectsData = Array.isArray(res.data) ? res.data : [];
       setProjects(projectsData);
       

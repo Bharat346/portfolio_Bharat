@@ -78,7 +78,7 @@ const Skills = () => {
   useEffect(() => {
     const fetchTopSkills = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/skills/top");
+        const res = await axios.get("https://portfolio-bharat-backend.vercel.app/api/skills/top");
         setStats(prev => ({
           ...prev,
           topSkills: res.data.length,
@@ -95,7 +95,7 @@ const Skills = () => {
   const fetchSkills = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/skills");
+      const res = await axios.get("https://portfolio-bharat-backend.vercel.app/api/skills");
       
       // Process skills data - only keep name and category
       const processedSkills = res.data.map(skill => ({
