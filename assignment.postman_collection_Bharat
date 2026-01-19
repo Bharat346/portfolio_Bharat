@@ -1,0 +1,336 @@
+{
+  "info": {
+    "_postman_id": "388467d7-0297-4048-af39-639ce7e5a482",
+    "name": "assignment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29631910"
+  },
+  "item": [
+    {
+      "name": "1. health",
+      "item": [
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/health",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2.profile",
+      "item": [
+        {
+          "name": "profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/profile",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3.projects",
+      "item": [
+        {
+          "name": "GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/projects",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/projects?skill=Graph",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "projects"
+              ],
+              "query": [
+                {
+                  "key": "skill",
+                  "value": "Graph",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJiaGFyYXQwMzA0MDZAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY4ODMwNTI3LCJleHAiOjE3Njg4MzQxMjd9.7M3dQpGuYhQY6POhDpUqpMa456K9d_5E58I4ma5j5tk",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"DNA Decoded\",\r\n  \"description\": \"DNA Decoded is an ML-powered web platform that analyzes DNA sequences to extract meaningful biological insights. The system leverages machine learning models for pattern recognition, mutation analysis, and data-driven interpretation of genetic information.\",\r\n  \"img\": \"https://images.unsplash.com/photo-1581091870627-3b0b4b2c6a1a\",\r\n  \"time\": \"Jan 2026 – Present\",\r\n  \"members\": [\"Bharat Kumar\"],\r\n  \"techStack\": [\r\n    \"React\",\r\n    \"Node.js\",\r\n    \"Express\",\r\n    \"PostgreSQL\",\r\n    \"Drizzle ORM\",\r\n    \"Python\",\r\n    \"Machine Learning\"\r\n  ],\r\n  \"features\": [\r\n    \"DNA sequence analysis using ML models\",\r\n    \"Pattern and mutation detection\",\r\n    \"Scalable backend architecture\",\r\n    \"Secure API-based data processing\"\r\n  ],\r\n  \"urls\": {\r\n    \"github\": null,\r\n    \"live\": null\r\n  },\r\n  \"buttons\": [],\r\n  \"files\": [],\r\n  \"tags\": [\"dna\", \"machine-learning\", \"bioinformatics\", \"fullstack\"]\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/projects",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4.Auth",
+      "item": [
+        {
+          "name": "LogIn",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"bharat030406@gmail.com\",\r\n    \"password\" : \"Bharat346\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/login",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Bharat Kumar\",\r\n  \"email\": \"bharat030406@gmail.com\",\r\n  \"password\": \"Bharat346\",\r\n  \"bio\": \"Full Stack Developer\",\r\n  \"avatarUrl\": \"https://github.com/shadcn.png\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/signup",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5.Skills",
+      "item": [
+        {
+          "name": "GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/skills",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "skills"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - top elements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/skills/top",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "skills",
+                "top"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJiaGFyYXQwMzA0MDZAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY4ODMwNTI3LCJleHAiOjE3Njg4MzQxMjd9.7M3dQpGuYhQY6POhDpUqpMa456K9d_5E58I4ma5j5tk",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Machine Learning\",\r\n  \"category\": \"Backend\",\r\n  \"level\": 90\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/skills",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "skills"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "experience",
+      "item": [
+        {
+          "name": "experience",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://portfolio-bharat-backend.vercel.app/api/experience",
+              "protocol": "https",
+              "host": [
+                "portfolio-bharat-backend",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "experience"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
