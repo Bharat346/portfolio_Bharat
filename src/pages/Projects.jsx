@@ -812,6 +812,7 @@ const Projects = () => {
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-3">
                       No projects found
+                      !!! Please Reload the page !!!
                     </h3>
                     <p className="text-gray-400 mb-8">
                       {search.trim() ? `No projects found for "${search}"` : "No projects available"}

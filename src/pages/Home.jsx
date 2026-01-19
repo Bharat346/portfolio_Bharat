@@ -57,6 +57,13 @@ import {
   ChevronRight,
   X,
   Trophy as TrophyIcon,
+  Building,
+  CalendarDays,
+  MapPin as MapPinIcon,
+  GraduationCap,
+  Workflow,
+  TrendingUp,
+  CheckCircle,
 } from "lucide-react";
 import Typewriter from "typewriter-effect";
 
@@ -67,7 +74,7 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Fixed: Add pointer-events-none to overlay */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-auto" onClick={onClose} />
+      <div className="absolute inset-0 pointer-events-none bg-black/80 backdrop-blur-sm pointer-events-auto" onClick={onClose} />
       
       {/* Fixed: Add pointer-events-auto to modal content */}
       <div className="relative bg-gray-900 border border-gray-800 rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden pointer-events-auto" onClick={(e) => e.stopPropagation()}>
@@ -263,8 +270,126 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
   );
 };
 
+// Experience Item Component
+const ExperienceItem = ({ experience, index }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.1 }}
+      className="relative"
+    >
+      {/* Timeline line */}
+      <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary/20 via-primary/40 to-transparent" />
+      
+      {/* Timeline dot */}
+      <div className="absolute left-6 top-8 -translate-x-1/2">
+        <div className="h-3 w-3 rounded-full bg-gradient-to-r from-primary to-primary/70" />
+      </div>
+
+      <Card 
+        className="ml-12 bg-white/5 border-white/10 hover:border-primary/30 transition-all cursor-pointer"
+        onClick={() => setExpanded(!expanded)}
+      >
+        <CardContent className="p-6">
+          <div className="space-y-4">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div className="space-y-2">
+                <h4 className="font-bold text-xl">{experience.title}</h4>
+                <div className="flex flex-wrap items-center gap-4 text-gray-400 text-sm">
+                  <div className="flex items-center gap-1">
+                    <Building className="h-4 w-4" />
+                    <span>{experience.company}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <MapPinIcon className="h-4 w-4" />
+                    <span>{experience.location}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex flex-col items-end gap-1">
+                <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                  <CalendarDays className="h-3 w-3 text-primary" />
+                  <span className="text-xs font-medium">
+                    {new Date(experience.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} - 
+                    {experience.current ? ' Present' : ` ${new Date(experience.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`}
+                  </span>
+                </div>
+                <span className="text-xs text-gray-400">
+                  {experience.type}
+                </span>
+              </div>
+            </div>
+
+            {/* Description */}
+            <p className="text-gray-300 leading-relaxed">
+              {expanded ? experience.description : `${experience.description.substring(0, 150)}...`}
+            </p>
+
+            {/* Technologies */}
+            {experience.technologies && experience.technologies.length > 0 && (
+              <div className="pt-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Workflow className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium text-gray-300">Technologies Used</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {experience.technologies.map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 hover:bg-primary/10 hover:border-primary/20 transition-colors"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Achievements */}
+            {experience.achievements && experience.achievements.length > 0 && expanded && (
+              <div className="pt-4 border-t border-white/10">
+                <div className="flex items-center gap-2 mb-3">
+                  <TrendingUp className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium text-gray-300">Key Achievements</span>
+                </div>
+                <ul className="space-y-2">
+                  {experience.achievements.map((achievement, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300 text-sm">{achievement}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Expand/Collapse Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className="mt-2 text-primary hover:text-primary/80 hover:bg-primary/10"
+              onClick={(e) => {
+                e.stopPropagation();
+                setExpanded(!expanded);
+              }}
+            >
+              {expanded ? 'Show Less' : 'Show More'}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+};
+
 const Home = () => {
   const [profile, setProfile] = useState(null);
+  const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCertificate, setActiveCertificate] = useState(null);
   const [certFileIndex, setCertFileIndex] = useState(0);
@@ -362,22 +487,69 @@ const Home = () => {
   ].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchData = async () => {
       try {
-        const res = await axios.get("https://portfolio-bharat-backend.vercel.app/api/profile");
-        setProfile(res.data);
+        setLoading(true);
+        
+        // Fetch profile
+        const profileRes = await axios.get("https://portfolio-bharat-backend.vercel.app/api/profile");
+        setProfile(profileRes.data);
+        
+        // Fetch experiences
+        const expRes = await axios.get("https://portfolio-bharat-backend.vercel.app/api/experience");
+        setExperiences(expRes.data);
+        
       } catch (err) {
-        console.error("Failed to fetch profile", err);
-        // Set default profile if API fails
+        console.error("Failed to fetch data", err);
+        // Set default data if API fails
         setProfile({
           name: "Bharat Kumar",
           bio: "Passionate full-stack developer creating meaningful digital experiences"
         });
+        
+        // Fallback experiences
+        setExperiences([
+          {
+            id: 1,
+            title: "Full Stack Developer",
+            company: "Tech Solutions Inc.",
+            location: "Remote",
+            startDate: "2023-01-01",
+            endDate: null,
+            current: true,
+            description: "Developed and maintained full-stack web applications using modern technologies. Collaborated with cross-functional teams to deliver high-quality software solutions.",
+            technologies: ["React", "Node.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
+            achievements: [
+              "Improved application performance by 40% through code optimization",
+              "Led development of key features used by 10,000+ users",
+              "Mentored 3 junior developers in best practices"
+            ],
+            type: "Full-time"
+          },
+          {
+            id: 2,
+            title: "Frontend Developer Intern",
+            company: "Digital Agency",
+            location: "New Delhi, India",
+            startDate: "2022-06-01",
+            endDate: "2022-12-31",
+            current: false,
+            description: "Built responsive and accessible user interfaces for various client projects. Implemented design systems and collaborated with UX designers.",
+            technologies: ["React", "JavaScript", "CSS", "Figma"],
+            achievements: [
+              "Reduced page load time by 30% for key client websites",
+              "Implemented mobile-first responsive designs for 5+ projects",
+              "Received positive feedback from clients for UI improvements"
+            ],
+            type: "Internship"
+          }
+        ]);
       } finally {
         setLoading(false);
       }
     };
-    fetchProfile();
+    
+    fetchData();
   }, []);
 
   const humanValues = [
@@ -559,14 +731,14 @@ const Home = () => {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 rounded-full border-2 border-transparent border-t-primary border-r-primary/30"
+              className="absolute inset-0 pointer-events-none rounded-full border-2 border-transparent border-t-primary border-r-primary/30"
             />
             <motion.div
               animate={{ rotate: -360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               className="absolute inset-4 rounded-full border-2 border-transparent border-b-primary border-l-primary/30"
             />
-            <User className="absolute inset-0 m-auto h-12 w-12 text-primary" />
+            <User className="absolute inset-0 pointer-events-none m-auto h-12 w-12 text-primary" />
           </div>
           <div className="space-y-3">
             <div className="h-2 w-64 bg-gray-800 rounded-full overflow-hidden mx-auto">
@@ -588,7 +760,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-
       <div className="z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-28">
         {/* Hero Section */}
         <motion.div
@@ -712,7 +883,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className="flex flex-wrap justify-center gap-4 mb-16"
+            className="flex z-10 flex-wrap justify-center gap-4 mb-16"
           >
             <Button
               size="lg"
@@ -730,7 +901,7 @@ const Home = () => {
               onClick={() => {
                 // Add your resume download logic here
                 const link = document.createElement('a');
-                link.href = '/resume.pdf'; // Update with your actual resume path
+                link.href = 'https://drive.google.com/file/d/1m-QwkN-TwGrj978aV8Vfc73pIkXsGLaw/view?usp=drivesdk'; 
                 link.download = 'Bharat_Kumar_Resume.pdf';
                 document.body.appendChild(link);
                 link.click();
@@ -1029,6 +1200,46 @@ const Home = () => {
           </div>
         </motion.div>
 
+        {/* Experience Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
+              <Briefcase className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium">Career Journey</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Professional Experience
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              My journey through various roles and projects that shaped my expertise
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            {experiences.length > 0 ? (
+              experiences
+                .sort((a, b) => new Date(b.startDate) - new Date(a.startDate))
+                .map((experience, index) => (
+                  <ExperienceItem
+                    key={experience.id}
+                    experience={experience}
+                    index={index}
+                  />
+                ))
+            ) : (
+              <div className="text-center py-12">
+                <GraduationCap className="h-12 w-12 text-gray-600 mx-auto mb-4" />
+                <p className="text-gray-400">No experience data available</p>
+              </div>
+            )}
+          </div>
+        </motion.div>
+
         {/* Certificates Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -1111,7 +1322,7 @@ const Home = () => {
           className="text-center"
         >
           <Card className="bg-gradient-to-br from-white/10 to-white/5 border-white/10 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10" />
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-primary/10 via-transparent to-primary/10" />
             <CardContent className="relative p-12 md:p-16">
               <div className="space-y-8">
                 <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-primary/20 to-primary/10">
