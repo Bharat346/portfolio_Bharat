@@ -9,6 +9,8 @@ Predusk Assesment | Backend
 - **GitHub Repository**: [LINK Frontend](https://github.com/Bharat346/portfolio_Bharat)
 - **📄 [Download Resume](https://drive.google.com/file/d/1ie-xqQtCMzQm8Nhr7Gxe73yyqReRd2il/view?usp=drivesdk)**
 
+- **📄 [Postman File](./Postman/Predusk-Portfolio-Env.postman_environment.json)**
+
 ---
 
 ## 🏗️ Architecture Overview
