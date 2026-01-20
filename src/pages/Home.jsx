@@ -68,16 +68,30 @@ import {
 import Typewriter from "typewriter-effect";
 
 // Certificate Viewer Component
-const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, onNextFile, fileIndex }) => {
+const CertificateViewer = ({
+  certificate,
+  onClose,
+  onPrev,
+  onNext,
+  onPrevFile,
+  onNextFile,
+  fileIndex,
+}) => {
   const currentFile = certificate.file[fileIndex];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Fixed: Add pointer-events-none to overlay */}
-      <div className="absolute inset-0 pointer-events-none bg-black/80 backdrop-blur-sm pointer-events-auto" onClick={onClose} />
-      
+      <div
+        className="absolute inset-0 pointer-events-none bg-black/80 backdrop-blur-sm pointer-events-auto"
+        onClick={onClose}
+      />
+
       {/* Fixed: Add pointer-events-auto to modal content */}
-      <div className="relative bg-gray-900 border border-gray-800 rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden pointer-events-auto" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="relative bg-gray-900 border border-gray-800 rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden pointer-events-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-800">
           <div className="flex items-center gap-3">
@@ -101,7 +115,10 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-auto max-h-[70vh]" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="p-6 overflow-auto max-h-[70vh]"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Certificate Display */}
             <div className="lg:w-2/3">
@@ -121,12 +138,13 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
                       alt={certificate.title}
                       className="max-w-full h-auto max-h-[400px] rounded-lg"
                       onError={(e) => {
-                        e.target.src = "https://placehold.co/600x400/1a1a1a/ffffff?text=Certificate+Not+Found";
+                        e.target.src =
+                          "https://placehold.co/600x400/1a1a1a/ffffff?text=Certificate+Not+Found";
                       }}
                     />
                   )}
                 </div>
-                
+
                 {/* File Navigation */}
                 {certificate.file.length > 1 && (
                   <div className="flex items-center justify-center gap-4 mt-4">
@@ -161,29 +179,34 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
             </div>
 
             {/* Certificate Info */}
-            <div className="lg:w-1/3 space-y-6" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="lg:w-1/3 space-y-6"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div>
                 <h4 className="font-semibold text-lg mb-2">Description</h4>
                 <p className="text-gray-300 text-sm leading-relaxed">
                   {certificate.description}
                 </p>
               </div>
-              
+
               <div className="space-y-3">
                 <div>
                   <p className="text-sm text-gray-400">Issued</p>
-                  <p className="font-medium">{new Date(certificate.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}</p>
+                  <p className="font-medium">
+                    {new Date(certificate.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
                 </div>
-                
+
                 <div>
                   <p className="text-sm text-gray-400">Type</p>
                   <p className="font-medium capitalize">{certificate.type}</p>
                 </div>
-                
+
                 <div>
                   <p className="text-sm text-gray-400">Files</p>
                   <div className="flex flex-wrap gap-2 mt-1">
@@ -194,7 +217,7 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
                           e.stopPropagation();
                           // Handle file switch here if needed
                         }}
-                        className={`px-3 py-1 rounded-full text-xs transition-colors ${fileIndex === idx ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
+                        className={`px-3 py-1 rounded-full text-xs transition-colors ${fileIndex === idx ? "bg-primary text-white" : "bg-gray-800 text-gray-300 hover:bg-gray-700"}`}
                       >
                         File {idx + 1}
                       </button>
@@ -208,7 +231,11 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
                   className="w-full bg-primary hover:bg-primary/90"
                   onClick={(e) => {
                     e.stopPropagation();
-                    window.open(currentFile.url, '_blank', 'noopener,noreferrer');
+                    window.open(
+                      currentFile.url,
+                      "_blank",
+                      "noopener,noreferrer",
+                    );
                   }}
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
@@ -219,9 +246,9 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
                   className="w-full border-gray-700 hover:border-gray-600 hover:bg-gray-800"
                   onClick={(e) => {
                     e.stopPropagation();
-                    const link = document.createElement('a');
+                    const link = document.createElement("a");
                     link.href = currentFile.url;
-                    link.download = `${certificate.title.replace(/\s+/g, '_')}.${currentFile.type}`;
+                    link.download = `${certificate.title.replace(/\s+/g, "_")}.${currentFile.type}`;
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
@@ -236,7 +263,10 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
         </div>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-800" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="flex items-center justify-between p-6 border-t border-gray-800"
+          onClick={(e) => e.stopPropagation()}
+        >
           <Button
             variant="outline"
             onClick={(e) => {
@@ -248,11 +278,11 @@ const CertificateViewer = ({ certificate, onClose, onPrev, onNext, onPrevFile, o
             <ChevronLeft className="mr-2 h-4 w-4" />
             Previous
           </Button>
-          
+
           <div className="text-sm text-gray-400">
             Certificate {fileIndex + 1} of {certificate.file.length}
           </div>
-          
+
           <Button
             variant="outline"
             onClick={(e) => {
@@ -283,13 +313,13 @@ const ExperienceItem = ({ experience, index }) => {
     >
       {/* Timeline line */}
       <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary/20 via-primary/40 to-transparent" />
-      
+
       {/* Timeline dot */}
       <div className="absolute left-6 top-8 -translate-x-1/2">
         <div className="h-3 w-3 rounded-full bg-gradient-to-r from-primary to-primary/70" />
       </div>
 
-      <Card 
+      <Card
         className="ml-12 bg-white/5 border-white/10 hover:border-primary/30 transition-all cursor-pointer"
         onClick={() => setExpanded(!expanded)}
       >
@@ -310,24 +340,30 @@ const ExperienceItem = ({ experience, index }) => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex flex-col items-end gap-1">
                 <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
                   <CalendarDays className="h-3 w-3 text-primary" />
                   <span className="text-xs font-medium">
-                    {new Date(experience.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} - 
-                    {experience.current ? ' Present' : ` ${new Date(experience.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`}
+                    {new Date(experience.startDate).toLocaleDateString(
+                      "en-US",
+                      { month: "short", year: "numeric" },
+                    )}{" "}
+                    -
+                    {experience.current
+                      ? " Present"
+                      : ` ${new Date(experience.endDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}`}
                   </span>
                 </div>
-                <span className="text-xs text-gray-400">
-                  {experience.type}
-                </span>
+                <span className="text-xs text-gray-400">{experience.type}</span>
               </div>
             </div>
 
             {/* Description */}
             <p className="text-gray-300 leading-relaxed">
-              {expanded ? experience.description : `${experience.description.substring(0, 150)}...`}
+              {expanded
+                ? experience.description
+                : `${experience.description.substring(0, 150)}...`}
             </p>
 
             {/* Technologies */}
@@ -335,7 +371,9 @@ const ExperienceItem = ({ experience, index }) => {
               <div className="pt-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Workflow className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium text-gray-300">Technologies Used</span>
+                  <span className="text-sm font-medium text-gray-300">
+                    Technologies Used
+                  </span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {experience.technologies.map((tech, idx) => (
@@ -351,22 +389,28 @@ const ExperienceItem = ({ experience, index }) => {
             )}
 
             {/* Achievements */}
-            {experience.achievements && experience.achievements.length > 0 && expanded && (
-              <div className="pt-4 border-t border-white/10">
-                <div className="flex items-center gap-2 mb-3">
-                  <TrendingUp className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium text-gray-300">Key Achievements</span>
+            {experience.achievements &&
+              experience.achievements.length > 0 &&
+              expanded && (
+                <div className="pt-4 border-t border-white/10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <TrendingUp className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-medium text-gray-300">
+                      Key Achievements
+                    </span>
+                  </div>
+                  <ul className="space-y-2">
+                    {experience.achievements.map((achievement, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-300 text-sm">
+                          {achievement}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-2">
-                  {experience.achievements.map((achievement, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-300 text-sm">{achievement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+              )}
 
             {/* Expand/Collapse Button */}
             <Button
@@ -378,7 +422,7 @@ const ExperienceItem = ({ experience, index }) => {
                 setExpanded(!expanded);
               }}
             >
-              {expanded ? 'Show Less' : 'Show More'}
+              {expanded ? "Show Less" : "Show More"}
             </Button>
           </div>
         </CardContent>
@@ -399,7 +443,7 @@ const Home = () => {
     github: "https://github.com/Bharat346",
     linkedin: "https://www.linkedin.com/in/bharat-kumar-ab49b9297",
     leetcode: "https://leetcode.com/u/Bharat346/",
-    email: "mailto:bharat030406@gmail.com"
+    email: "mailto:bharat030406@gmail.com",
   };
 
   // Certificates data with correct public folder paths
@@ -409,7 +453,8 @@ const Home = () => {
       title: "Ethical Hacking Competition",
       issuer: "Naukari Campus",
       date: "2025-05-18",
-      description: "Secured Average position in national-level Ethical Hacking competition demonstrating advanced penetration testing skills.",
+      description:
+        "Secured Average position in national-level Ethical Hacking competition demonstrating advanced penetration testing skills.",
       file: [
         {
           type: "pdf",
@@ -424,7 +469,8 @@ const Home = () => {
       title: "AI & Robotics Workshop Completion",
       issuer: "NIT Delhi",
       date: "2024-04-06",
-      description: "Completed intensive workshop on AI and Robotics, building functional robotic car with obstacle detection.",
+      description:
+        "Completed intensive workshop on AI and Robotics, building functional robotic car with obstacle detection.",
       file: [
         {
           type: "pdf",
@@ -439,7 +485,8 @@ const Home = () => {
       title: "Hindi Diwas Essay Competition (2nd Position)",
       issuer: "Ministry of Education",
       date: "2024-09-14",
-      description: "Awarded 2nd position in All-India Hindi Diwas Essay Competition among 500+ participants.",
+      description:
+        "Awarded 2nd position in All-India Hindi Diwas Essay Competition among 500+ participants.",
       file: [
         {
           type: "pdf",
@@ -454,7 +501,8 @@ const Home = () => {
       title: "AInCAT Top Performer",
       issuer: "Naukari Campus",
       date: "2025-05-24",
-      description: "Scored in top 10% percentile in All India Naukari Campus Aptitude Test among 50,000+ candidates.",
+      description:
+        "Scored in top 10% percentile in All India Naukari Campus Aptitude Test among 50,000+ candidates.",
       file: [
         {
           type: "pdf",
@@ -469,7 +517,8 @@ const Home = () => {
       title: "National Students Paryavaran Competition (NSPC) 2025",
       issuer: "Ministry of Education & Environment",
       date: "2025-07-14",
-      description: "Participated in National Students Paryavaran Competition 2025, contributing to environmental awareness.",
+      description:
+        "Participated in National Students Paryavaran Competition 2025, contributing to environmental awareness.",
       file: [
         {
           type: "image",
@@ -490,65 +539,70 @@ const Home = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        
+
         // Fetch profile
-        const profileRes = await axios.get("https://portfolio-bharat-backend.vercel.app/api/profile");
+        const profileRes = await axios.get(
+          "https://portfolio-bharat-backend.vercel.app/api/profile",
+        );
         setProfile(profileRes.data);
-        
+
         // Fetch experiences
-        const expRes = await axios.get("https://portfolio-bharat-backend.vercel.app/api/experience");
+        const expRes = await axios.get(
+          "https://portfolio-bharat-backend.vercel.app/api/experience",
+        );
         setExperiences(expRes.data);
-        
       } catch (err) {
         console.error("Failed to fetch data", err);
         // Set default data if API fails
         setProfile({
           name: "Bharat Kumar",
-          bio: "Passionate full-stack developer creating meaningful digital experiences"
+          bio: "Passionate full-stack developer creating meaningful digital experiences",
         });
-        
+
         // Fallback experiences
         setExperiences([
           {
             id: 1,
-            title: "Full Stack Developer",
-            company: "Tech Solutions Inc.",
-            location: "Remote",
-            startDate: "2023-01-01",
-            endDate: null,
+            title: "Machine Learning Research Intern",
+            company: "NIT Delhi",
+            location: "New Delhi, India",
+            startDate: "2026-01-19",
+            endDate: "2026-02-19",
             current: true,
-            description: "Developed and maintained full-stack web applications using modern technologies. Collaborated with cross-functional teams to deliver high-quality software solutions.",
-            technologies: ["React", "Node.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
+            description:
+              "Worked as an ML Research Intern focusing on applied machine learning concepts, data preprocessing, model experimentation, and academic research problem solving.",
+            technologies: ["Python", "Machine Learning", "Data Analysis"],
             achievements: [
-              "Improved application performance by 40% through code optimization",
-              "Led development of key features used by 10,000+ users",
-              "Mentored 3 junior developers in best practices"
+              "Conducted research on applied machine learning models",
+              "Worked with real-world datasets under academic supervision",
+              "Improved understanding of ML research workflows",
             ],
-            type: "Full-time"
+            type: "Internship",
           },
           {
             id: 2,
-            title: "Frontend Developer Intern",
-            company: "Digital Agency",
-            location: "New Delhi, India",
-            startDate: "2022-06-01",
-            endDate: "2022-12-31",
+            title: "AI & Robotics Workshop Participant",
+            company: "AI & Robotics Workshop",
+            location: "India",
+            startDate: "2024-04-03",
+            endDate: "2024-04-16",
             current: false,
-            description: "Built responsive and accessible user interfaces for various client projects. Implemented design systems and collaborated with UX designers.",
-            technologies: ["React", "JavaScript", "CSS", "Figma"],
+            description:
+              "Participated in an intensive AI and Robotics workshop covering AI fundamentals, robotics systems, and hands-on practical sessions.",
+            technologies: ["Artificial Intelligence", "Robotics", "Automation"],
             achievements: [
-              "Reduced page load time by 30% for key client websites",
-              "Implemented mobile-first responsive designs for 5+ projects",
-              "Received positive feedback from clients for UI improvements"
+              "Hands-on experience with robotics systems",
+              "Understanding of AI-driven automation",
+              "Completed practical AI & robotics exercises",
             ],
-            type: "Internship"
-          }
+            type: "Workshop",
+          },
         ]);
       } finally {
         setLoading(false);
       }
     };
-    
+
     fetchData();
   }, []);
 
@@ -556,7 +610,8 @@ const Home = () => {
     {
       icon: Heart,
       title: "Empathy First",
-      description: "Understanding user needs and emotions to create meaningful experiences",
+      description:
+        "Understanding user needs and emotions to create meaningful experiences",
     },
     {
       icon: Handshake,
@@ -644,13 +699,15 @@ const Home = () => {
   const services = [
     {
       title: "Web Development",
-      description: "Creating beautiful, responsive websites that tell your story",
+      description:
+        "Creating beautiful, responsive websites that tell your story",
       icon: Code2,
       color: "from-blue-500 to-cyan-400",
     },
     {
       title: "Backend Solutions",
-      description: "Building robust APIs and databases that power amazing experiences",
+      description:
+        "Building robust APIs and databases that power amazing experiences",
       icon: Server,
       color: "from-green-500 to-emerald-400",
     },
@@ -669,7 +726,8 @@ const Home = () => {
 
   const handlePrevCertificate = useCallback(() => {
     if (!activeCertificate) return;
-    const newIndex = (activeCertificate.index - 1 + certificates.length) % certificates.length;
+    const newIndex =
+      (activeCertificate.index - 1 + certificates.length) % certificates.length;
     setActiveCertificate({ cert: certificates[newIndex], index: newIndex });
     setCertFileIndex(0);
   }, [activeCertificate, certificates]);
@@ -699,19 +757,19 @@ const Home = () => {
       if (!activeCertificate) return;
 
       switch (e.key) {
-        case 'ArrowLeft':
+        case "ArrowLeft":
           handlePrevCertificate();
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           handleNextCertificate();
           break;
-        case 'ArrowUp':
+        case "ArrowUp":
           handlePrevFile();
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
           handleNextFile();
           break;
-        case 'Escape':
+        case "Escape":
           setActiveCertificate(null);
           break;
         default:
@@ -719,9 +777,15 @@ const Home = () => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeCertificate, handlePrevCertificate, handleNextCertificate, handlePrevFile, handleNextFile]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [
+    activeCertificate,
+    handlePrevCertificate,
+    handleNextCertificate,
+    handlePrevFile,
+    handleNextFile,
+  ]);
 
   if (loading) {
     return (
@@ -776,7 +840,9 @@ const Home = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8"
           >
             <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-sm text-gray-300">Welcome! I'm currently available</span>
+            <span className="text-sm text-gray-300">
+              Welcome! I'm currently available
+            </span>
           </motion.div>
 
           {/* Main Headline */}
@@ -888,7 +954,7 @@ const Home = () => {
             <Button
               size="lg"
               className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/20 group px-8 py-6 text-base font-semibold rounded-full"
-              onClick={() => window.location.href = socialProfiles.email}
+              onClick={() => (window.location.href = socialProfiles.email)}
             >
               <Mail className="mr-3 h-5 w-5" />
               Let's Build Something Together
@@ -900,9 +966,10 @@ const Home = () => {
               className="border-white/20 hover:border-white/40 hover:bg-white/5 rounded-full px-8 py-6 text-base font-medium"
               onClick={() => {
                 // Add your resume download logic here
-                const link = document.createElement('a');
-                link.href = 'https://drive.google.com/file/d/1m-QwkN-TwGrj978aV8Vfc73pIkXsGLaw/view?usp=drivesdk'; 
-                link.download = 'Bharat_Kumar_Resume.pdf';
+                const link = document.createElement("a");
+                link.href =
+                  "https://drive.google.com/file/d/1m-QwkN-TwGrj978aV8Vfc73pIkXsGLaw/view?usp=drivesdk";
+                link.download = "Bharat_Kumar_Resume.pdf";
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -937,8 +1004,12 @@ const Home = () => {
                         <Icon className="h-6 w-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg mb-2">{value.title}</h3>
-                        <p className="text-sm text-gray-400">{value.description}</p>
+                        <h3 className="font-semibold text-lg mb-2">
+                          {value.title}
+                        </h3>
+                        <p className="text-sm text-gray-400">
+                          {value.description}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1034,11 +1105,11 @@ const Home = () => {
               </CardHeader>
               <CardContent className="space-y-8">
                 <p className="text-gray-300 leading-relaxed text-lg">
-                  I'm not just a developer—I'm a problem solver, a collaborator, 
-                  and someone who genuinely cares about creating digital experiences 
-                  that feel personal and meaningful. With over 5 years of experience, 
-                  I've learned that the best solutions come from understanding people, 
-                  not just technology.
+                  I'm not just a developer—I'm a problem solver, a collaborator,
+                  and someone who genuinely cares about creating digital
+                  experiences that feel personal and meaningful. With over 5
+                  years of experience, I've learned that the best solutions come
+                  from understanding people, not just technology.
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -1055,7 +1126,9 @@ const Home = () => {
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
                       <Coffee className="h-5 w-5 text-gray-400" />
-                      <span className="text-gray-300">Coffee & conversations</span>
+                      <span className="text-gray-300">
+                        Coffee & conversations
+                      </span>
                     </div>
                     <div className="flex items-center gap-3">
                       <BookOpen className="h-5 w-5 text-gray-400" />
@@ -1074,7 +1147,7 @@ const Home = () => {
                       "Creating solutions that improve real people's lives",
                       "Building lasting relationships with clients and partners",
                       "Writing clean, maintainable code that stands the test of time",
-                      "Making technology accessible and enjoyable for everyone"
+                      "Making technology accessible and enjoyable for everyone",
                     ].map((item, index) => (
                       <div key={index} className="flex items-start gap-3">
                         <CheckCircle2 className="h-5 w-5 text-green-400 mt-0.5 flex-shrink-0" />
@@ -1122,7 +1195,9 @@ const Home = () => {
                     >
                       <div className="group p-5 rounded-xl border border-white/10 hover:border-primary/30 hover:bg-white/10 transition-all duration-300 cursor-pointer">
                         <div className="flex items-start gap-4">
-                          <div className={`p-3 rounded-lg bg-gradient-to-br ${service.color}`}>
+                          <div
+                            className={`p-3 rounded-lg bg-gradient-to-br ${service.color}`}
+                          >
                             <Icon className="h-5 w-5 text-white" />
                           </div>
                           <div>
@@ -1144,7 +1219,9 @@ const Home = () => {
                     variant="outline"
                     className="w-full border-white/20 hover:border-white/40 hover:bg-white/5 rounded-lg"
                     size="lg"
-                    onClick={() => window.location.href = socialProfiles.email}
+                    onClick={() =>
+                      (window.location.href = socialProfiles.email)
+                    }
                   >
                     <MessageSquare className="mr-3 h-5 w-5" />
                     Let's Discuss Your Project
@@ -1186,12 +1263,16 @@ const Home = () => {
               >
                 <div className="group p-5 rounded-xl border border-white/10 hover:border-primary/30 hover:bg-white/10 transition-all duration-300 cursor-pointer">
                   <div className="flex flex-col items-center text-center space-y-3">
-                    <div className={`p-3 rounded-lg bg-gradient-to-br ${tech.color}`}>
+                    <div
+                      className={`p-3 rounded-lg bg-gradient-to-br ${tech.color}`}
+                    >
                       {tech.icon}
                     </div>
                     <div>
                       <div className="font-semibold text-sm">{tech.label}</div>
-                      <div className="text-xs text-gray-400 mt-1">{tech.category}</div>
+                      <div className="text-xs text-gray-400 mt-1">
+                        {tech.category}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1216,7 +1297,8 @@ const Home = () => {
               Professional Experience
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              My journey through various roles and projects that shaped my expertise
+              My journey through various roles and projects that shaped my
+              expertise
             </p>
           </div>
 
@@ -1269,7 +1351,7 @@ const Home = () => {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
               >
-                <Card 
+                <Card
                   className="bg-white/5 border-white/10 hover:border-primary/30 transition-all cursor-pointer h-full group"
                   onClick={() => handleCertificateClick(cert, index)}
                 >
@@ -1281,7 +1363,7 @@ const Home = () => {
                         </div>
                         <Eye className="h-4 w-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                      
+
                       <div>
                         <h4 className="font-semibold text-lg mb-2 line-clamp-2">
                           {cert.title}
@@ -1293,17 +1375,18 @@ const Home = () => {
                           {cert.description}
                         </p>
                       </div>
-                      
+
                       <div className="flex items-center justify-between pt-4 border-t border-white/10">
                         <span className="text-xs text-gray-400">
-                          {new Date(cert.date).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric'
+                          {new Date(cert.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
                           })}
                         </span>
                         <span className="text-xs text-primary font-medium capitalize">
-                          {cert.file.length} {cert.file.length === 1 ? 'file' : 'files'}
+                          {cert.file.length}{" "}
+                          {cert.file.length === 1 ? "file" : "files"}
                         </span>
                       </div>
                     </div>
@@ -1337,14 +1420,17 @@ const Home = () => {
                   Together
                 </h2>
                 <p className="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
-                  Whether you have a project in mind or just want to explore possibilities, 
-                  I'm here to help bring your vision to life with care and expertise.
+                  Whether you have a project in mind or just want to explore
+                  possibilities, I'm here to help bring your vision to life with
+                  care and expertise.
                 </p>
                 <div className="flex flex-wrap justify-center gap-6 pt-8">
                   <Button
                     size="lg"
                     className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/20 group px-10 py-7 text-lg font-bold rounded-full"
-                    onClick={() => window.location.href = socialProfiles.email}
+                    onClick={() =>
+                      (window.location.href = socialProfiles.email)
+                    }
                   >
                     <Mail className="mr-3 h-6 w-6" />
                     Start a Conversation
@@ -1354,7 +1440,9 @@ const Home = () => {
                     size="lg"
                     variant="outline"
                     className="border-white/20 hover:border-white/40 hover:bg-white/5 rounded-full py-7 text-lg font-semibold"
-                    onClick={() => window.location.href = socialProfiles.linkedin}
+                    onClick={() =>
+                      (window.location.href = socialProfiles.linkedin)
+                    }
                   >
                     <Linkedin className="mr-3 h-6 w-6" />
                     Connect on LinkedIn
