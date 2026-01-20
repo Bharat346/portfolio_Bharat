@@ -673,19 +673,19 @@ const Home = () => {
     {
       icon: Users,
       label: "Happy Clients",
-      value: "50+",
+      value: "5+",
       description: "Satisfied partners",
     },
     {
       icon: Briefcase,
       label: "Projects",
-      value: "100+",
+      value: "5+",
       description: "Successfully delivered",
     },
     {
       icon: Clock,
       label: "Experience",
-      value: "5+ Years",
+      value: "1+ Years",
       description: "Professional journey",
     },
     {
